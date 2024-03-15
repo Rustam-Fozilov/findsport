@@ -23,6 +23,7 @@ class AdvertisementShowResource extends JsonResource
             'title' => $this->title_uz,
             'ad_type' => $this->ad_type,
             'description' => $this->description_uz,
+            'user' => $this->user,
             'sport' => SportResource::collection($this->sports),
             'rating' => $this->rate ?? 3,
             'image' => $this?->thumbnail?->url ?? '/images/sample_293x210.jpg',
@@ -30,7 +31,7 @@ class AdvertisementShowResource extends JsonResource
             'location' => $this->location,
             'landmark' => $this->landmark ?? '',
             'is_favorite' => $this->is_favorite,
-            'phones'=>$this->phones,
+            'phones' => $this->phones,
             'infrastructure'=>InfrastructureResource::collection($this->infrastructure)
         ];
         switch ($this->ad_type) {

@@ -66,9 +66,10 @@ class AdvertisementService
     {
         $attributes = $this->translate_check($attributes, 'title');
         $attributes = $this->translate_check($attributes, 'description');
-        $advertisement = Advertisement::create(array_intersect_key(
+        $advertisement = auth()->user()->advertisements()->create(array_intersect_key(
             $attributes,  // the array with all keys
-            array_flip(['title_uz',
+            array_flip([
+                'title_uz',
                 'title_ru',
                 'title_en',
                 'description_uz',
@@ -79,7 +80,8 @@ class AdvertisementService
                 'location',
                 'landmark',
                 'district_id',
-                'price']) // keys to be extracted
+                'price'
+            ]) // keys to be extracted
         ));
 //        $advertisement=Advertisement::query()->first();
         $advertisement->sports()->sync($attributes['sports']);

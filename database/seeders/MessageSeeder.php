@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Message;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class MessageSeeder extends Seeder
@@ -14,10 +15,10 @@ class MessageSeeder extends Seeder
      */
     public function run()
     {
-        Message::query()->create([
+        $user = User::find(1);
+
+        $user->messages()->create([
             'chat_id' => 1,
-            'sender_id' => 2,
-            'receiver_id' => 1,
             'message' => 'Hello World',
             'read' => false,
         ]);

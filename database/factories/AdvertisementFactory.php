@@ -96,6 +96,7 @@ class AdvertisementFactory extends Factory
     public function definition()
     {
         return [
+            'user_id' => 1,
             'title_uz' => $this->faker->unique()->word,
             'title_ru' => $this->faker->unique()->word,
             'title_en' => $this->faker->unique()->word,
