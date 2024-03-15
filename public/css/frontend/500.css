@@ -1,0 +1,32 @@
+@import url(https://fonts.googleapis.com/css?family=Lato);body {
+  text-align: center;
+  font-family: "Lato", arial;
+}
+
+.btn {
+  border-radius: 4px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.4;
+  padding: 7px 24px;
+  transition: border 0.25s linear 0s, color 0.25s linear 0s, background-color 0.25s linear 0s;
+}
+
+h1 {
+  font-size: 120px;
+  text-align: center;
+}
+
+.form-control {
+  background-color: #ffffff !important;
+  border: 1px solid #d3d3d3;
+  border-radius: 2px;
+  box-shadow: none;
+  color: #555555;
+  display: inline-block;
+  font-size: 13px;
+  height: auto;
+  padding: 8px 12px;
+  width: 100%;
+}
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9yZXNvdXJjZXMvc2Fzcy9mcm9udGVuZC9wYWdlcy81MDAuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiMERBQ0E7RUFDSTtFQUNBO0NBQ0o7O0FBQ0E7RUFDSTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7Q0FFSjs7QUFBQTtFQUNJO0VBQ0E7Q0FHSjs7QUFEQTtFQUNJO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBO0VBQ0E7RUFDQTtFQUNBIiwiZmlsZSI6Ii9jc3MvZnJvbnRlbmQvNTAwLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgdXJsKGh0dHBzOi8vZm9udHMuZ29vZ2xlYXBpcy5jb20vY3NzP2ZhbWlseT1MYXRvKTtcbmJvZHkge1xuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgICBmb250LWZhbWlseTogJ0xhdG8nLCBhcmlhbDtcbn1cbi5idG4ge1xuICAgIGJvcmRlci1yYWRpdXM6IDRweDtcbiAgICBmb250LXNpemU6IDE1cHg7XG4gICAgZm9udC13ZWlnaHQ6IDQwMDtcbiAgICBsaW5lLWhlaWdodDogMS40O1xuICAgIHBhZGRpbmc6IDdweCAyNHB4O1xuICAgIHRyYW5zaXRpb246IGJvcmRlciAwLjI1cyBsaW5lYXIgMHMsIGNvbG9yIDAuMjVzIGxpbmVhciAwcywgYmFja2dyb3VuZC1jb2xvciAwLjI1cyBsaW5lYXIgMHM7XG59XG5oMSB7XG4gICAgZm9udC1zaXplOiAxMjBweDtcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XG59XG4uZm9ybS1jb250cm9sIHtcbiAgICBiYWNrZ3JvdW5kLWNvbG9yOiAjZmZmZmZmICFpbXBvcnRhbnQ7XG4gICAgYm9yZGVyOiAxcHggc29saWQgI2QzZDNkMztcbiAgICBib3JkZXItcmFkaXVzOiAycHg7XG4gICAgYm94LXNoYWRvdzogbm9uZTtcbiAgICBjb2xvcjogIzU1NTU1NTtcbiAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgZm9udC1zaXplOiAxM3B4O1xuICAgIGhlaWdodDogYXV0bztcbiAgICBwYWRkaW5nOiA4cHggMTJweDtcbiAgICB3aWR0aDogMTAwJTtcbn1cbiJdLCJzb3VyY2VSb290IjoiIn0=*/
