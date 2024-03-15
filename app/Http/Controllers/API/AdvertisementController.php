@@ -126,7 +126,7 @@ class AdvertisementController extends ApiController
     public function show(Request $request, Advertisement $advertisement)
     {
 //        $advertisement->increment('views');
-        $advertisement->with('infrastructure', 'sports', 'ad_items', 'district');
+        $advertisement->with('infrastructure', 'sports', 'ad_items', 'district', 'user2');
         return $this->success(__('messages.success'), (new AdvertisementShowResource($advertisement)));
     }
 

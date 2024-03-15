@@ -45,5 +45,6 @@ Route::get('regions', [InfoController::class, 'regions'])->name('api.regions');
 Route::get('districts', [InfoController::class, 'districts'])->name('api.districts');
 Route::get('site', [InfoController::class, 'info'])->name('api.info');
 
-Route::post('messages', [MessageController::class, 'store'])->name('api.messages.store');
+Route::get('/messages', [MessageController::class, 'index'])->name('api.messages.index');
+Route::post('/messages', [MessageController::class, 'store'])->name('api.messages.store');
 

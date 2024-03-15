@@ -12,7 +12,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -20,7 +20,6 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'uid',
         'first_name',
         'last_name',
         'birthday',
@@ -67,11 +66,6 @@ class User extends Authenticatable
     public function messages(): HasMany
     {
         return $this->hasMany(Message::class);
-    }
-
-    public function chatUser(): BelongsToMany
-    {
-        return $this->belongsToMany(ChatUser::class);
     }
 
     public function scopeRoleId($query, $role_id)

@@ -102,9 +102,9 @@ class IndexController extends AdminController
         );
         $grounds=Advertisement::all();
         $users=User::all();
-    return view('admin.index',
-        compact('analytics_error', 'users_chart', 'visitors',
-            'pageVisits', 'month_visits', 'year_visits','users',
-        'grounds'));
+
+        return view('admin.index',
+            compact('analytics_error', 'users_chart', 'visitors',
+                'pageVisits', 'month_visits', 'year_visits','users', 'grounds'));
     }
 }

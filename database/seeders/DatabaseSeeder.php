@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PlanSeeder::class);
         $this->call(ChatSeeder::class);
         $this->call(MessageSeeder::class);
-        $this->call(ChatUserSeeder::class);
+//        $this->call(ChatUserSeeder::class);
         Advertisement::factory(5)->create();
     }
 }

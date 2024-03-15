@@ -16,7 +16,8 @@ class MessageSeeder extends Seeder
     {
         Message::query()->create([
             'chat_id' => 1,
-            'user_id' => 2,
+            'sender_id' => 2,
+            'receiver_id' => 1,
             'message' => 'Hello World',
             'read' => false,
         ]);

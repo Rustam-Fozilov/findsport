@@ -24,7 +24,8 @@ class StoreMessageRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|string'
+            'sender_id' => 'required',
+            'message' => 'required|string'
         ];
     }
 }

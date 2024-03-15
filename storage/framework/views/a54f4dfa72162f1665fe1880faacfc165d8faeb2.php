@@ -1,0 +1,1 @@
+<?php /**PATH /home/rustam/Private/felix/findsport/resources/views/admin/layouts/menu.blade.php ENDPATH**/ ?>
