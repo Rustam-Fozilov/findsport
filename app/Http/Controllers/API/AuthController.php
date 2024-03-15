@@ -19,7 +19,7 @@ use Throwable;
 class AuthController extends ApiController
 {
 
-    public function authenticate(LoginRequest $request, UserService $userService): JsonResponse
+    public function authenticate(Request $request, UserService $userService): JsonResponse
     {
         try {
             $login = $request->validated()['phone'];
