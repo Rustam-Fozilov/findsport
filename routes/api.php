@@ -14,6 +14,11 @@ Route::get('phone-view', [InfoController::class, 'phoneView'])->name('api.phone-
 Route::middleware(['auth:sanctum', 'auth'])->group(function () {
     Route::post('/upload', [UploaderController::class, 'upload'])->name('file-upload-posts');
     Route::delete('/upload-delete', [UploaderController::class, 'delete'])->name('file-delete-posts');
+
+    Route::prefix('notifications')->group(function () {
+        Route::get('/', [MessageController::class, 'notifications'])->name('api.messages.notifications');
+        Route::post('/mark-as-read', [MessageController::class, 'markAsRead'])->name('api.messages.mark_as_read');
+    });
 });
 
 Route::prefix('advertisements')->group(function () {
@@ -37,6 +42,12 @@ Route::prefix('advertisements')->group(function () {
     Route::get('{advertisement}', [AdvertisementController::class, 'show'])->name('api.advertisements.show');
 });
 
+Route::prefix('messages')->group(function () {
+    Route::get('/', [MessageController::class, 'index'])->name('api.messages.index');
+    Route::post('/send-admin', [MessageController::class, 'sendToAdmin'])->name('api.messages.store');
+    Route::post('/send-client', [MessageController::class, 'sendToClient'])->name('api.messages.store_client');
+});
+
 Route::get('search', [AdvertisementController::class, 'search'])->name('api.search.advertisements');
 Route::get('search-history', [AdvertisementController::class, 'searchHistory'])
     ->name('api.search.history')
@@ -46,10 +57,3 @@ Route::get('infrastructure', [InfoController::class, 'infrastructures'])->name('
 Route::get('regions', [InfoController::class, 'regions'])->name('api.regions');
 Route::get('districts', [InfoController::class, 'districts'])->name('api.districts');
 Route::get('site', [InfoController::class, 'info'])->name('api.info');
-
-Route::get('/messages', [MessageController::class, 'index'])->name('api.messages.index');
-Route::post('/messages/send-admin', [MessageController::class, 'sendToAdmin'])->name('api.messages.store');
-Route::post('/messages/send-client', [MessageController::class, 'sendToClient'])->name('api.messages.store_client');
-Route::get('/messages/notifications', [MessageController::class, 'notifications'])
-    ->middleware('auth:sanctum')
-    ->name('api.messages.notifications');
