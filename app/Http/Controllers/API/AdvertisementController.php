@@ -54,7 +54,7 @@ class AdvertisementController extends ApiController
     public function best_ads(Request $request): JsonResponse
     {
         $advertisements = $this->service->all(
-            limit: $request->query('limit', 5),
+            limit: $request->query('limit', 100),
             listBy: $request->query('listBy', 'latest'),
             plan: 1
         );
