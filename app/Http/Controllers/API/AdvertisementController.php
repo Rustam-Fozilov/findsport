@@ -135,6 +135,12 @@ class AdvertisementController extends ApiController
         return $this->success(__('messages.success'), new PaginationResourceCollection($advertisements, AdvertisementResource::class));
     }
 
+    public function locations(Request $request): JsonResponse
+    {
+        $locations = $this->service->all()->pluck('location');
+        return $this->success('all locations', $locations);
+    }
+
     public function like_ads(Request $request): JsonResponse
     {
         $advertisements = $this->service->all(
@@ -147,7 +153,6 @@ class AdvertisementController extends ApiController
         );
         return $this->success(__('messages.success'), new PaginationResourceCollection($advertisements, AdvertisementResource::class));
     }
-
 
     public function show(Request $request, Advertisement $advertisement)
     {
