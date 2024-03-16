@@ -24,6 +24,7 @@ Route::prefix('advertisements')->group(function () {
     Route::get('/sections', [AdvertisementController::class, 'sections'])->name('api.advertisements.sections');
     Route::get('/clubs', [AdvertisementController::class, 'clubs'])->name('api.advertisements.clubs');
     Route::group(['middleware' => 'auth:sanctum'], function () {
+        Route::get('/my-clubs', [AdvertisementController::class, 'getMyClubs'])->name('api.advertisements.my+clubs');
         Route::post('/create', [AdvertisementController::class, 'store'])->name('api.advertisements.store');
         Route::put('/{advertisement}', [AdvertisementController::class, 'update'])->name('api.advertisements.update');
         Route::delete('/{advertisement}', [AdvertisementController::class, 'destroy'])->name('api.advertisements.destroy');

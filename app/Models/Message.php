@@ -13,8 +13,15 @@ class Message extends Model
 
     protected $table = 'messages';
 
+    protected $guarded = ['id'];
+
     public function messageable(): MorphTo
     {
         return $this->morphTo();
+    }
+
+    public function chat(): BelongsTo
+    {
+        return $this->belongsTo(Chat::class);
     }
 }

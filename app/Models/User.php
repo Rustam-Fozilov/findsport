@@ -69,6 +69,11 @@ class User extends Authenticatable
         return $this->morphMany(Message::class, 'messageable');
     }
 
+    public function chats(): HasMany
+    {
+        return $this->hasMany(Chat::class);
+    }
+
     public function advertisements(): HasMany
     {
         return $this->hasMany(Advertisement::class);

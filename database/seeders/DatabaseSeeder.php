@@ -7,6 +7,7 @@ use App\Models\Club;
 use App\Models\Event;
 use App\Models\Ground;
 use App\Models\SectionItem;
+use App\Models\TempUser;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -20,6 +21,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(RolesTableSeeder::class);
         $this->call(UserSeeder::class);
+        $this->call(TempUserSeeder::class);
         $this->call(SiteSeeder::class);
         $this->call(PageSeeder::class);
         $this->call(DistrictSeeder::class);
@@ -29,7 +31,6 @@ class DatabaseSeeder extends Seeder
         $this->call(PlanSeeder::class);
         $this->call(ChatSeeder::class);
         $this->call(MessageSeeder::class);
-//        $this->call(ChatUserSeeder::class);
         Advertisement::factory(5)->create();
     }
 }

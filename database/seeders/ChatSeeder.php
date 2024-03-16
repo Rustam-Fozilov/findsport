@@ -14,6 +14,8 @@ class ChatSeeder extends Seeder
      */
     public function run()
     {
-        Chat::query()->create([]);
+        Chat::query()->create([
+            'owner_id' => 1
+        ]);
     }
 }

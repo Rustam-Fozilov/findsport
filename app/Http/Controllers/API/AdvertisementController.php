@@ -104,7 +104,20 @@ class AdvertisementController extends ApiController
             search_query: $request->query('search_query'),
             latitude: $request->query('latitude'),
             longitude: $request->query('longitude'),
-            ad_type: 'clubs'
+            ad_type: 'club'
+        );
+        return $this->success(__('messages.success'), new PaginationResourceCollection($advertisements, AdvertisementResource::class));
+    }
+
+    public function getMyClubs(Request $request): JsonResponse
+    {
+        $advertisements = $this->service->my(
+            limit: $request->query('limit', 5),
+            listBy: $request->query('listBy', 'latest'),
+            search_query: $request->query('search_query'),
+            latitude: $request->query('latitude'),
+            longitude: $request->query('longitude'),
+            ad_type: 'club'
         );
         return $this->success(__('messages.success'), new PaginationResourceCollection($advertisements, AdvertisementResource::class));
     }

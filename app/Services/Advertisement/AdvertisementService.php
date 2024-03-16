@@ -62,6 +62,53 @@ class AdvertisementService
 
     }
 
+    public function my(
+        $limit = 5,
+        $listBy = 'latest',
+        $search_query = null,
+        $active = 'pending',
+        $latitude = null,
+        $longitude = null,
+        $getFavourites = null,
+        $plan = null,
+        $ad_type = null,
+        $price_from = null,
+        $price_to = null,
+    )
+    {
+        return Advertisement::query()
+            ->where('user_id', '=', auth()->user()->id)
+            ->when($search_query, function ($query) use ($search_query) {
+                return $query->where('title_uz', 'like', '%' . $search_query . '%')
+                    ->orWhere('title_ru', 'like', '%' . $search_query . '%')
+                    ->orWhere('title_en', 'like', '%' . $search_query . '%')
+                    ->orWhere('description_uz', 'like', '%' . $search_query . '%')
+                    ->orWhere('description_ru', 'like', '%' . $search_query . '%')
+                    ->orWhere('description_en', 'like', '%' . $search_query . '%');
+            })
+            ->when($active, function ($query) use ($active) {
+                return $query->where('status', $active);
+            })
+            ->when($plan, function ($query) use ($plan) {
+                return $query->where('plan_id', $plan);
+            })
+            ->when($ad_type, function ($query) use ($ad_type) {
+                return $query->where('ad_type', $ad_type);
+            })
+            ->when($price_from, function ($query) use ($price_from) {
+                return $query->where('price', '>', $price_from);
+            })
+            ->when($price_to, function ($query) use ($price_to) {
+                return $query->where('price', '<', $price_to);
+            })
+            ->with('sports', 'ad_items')
+            ->listBy($listBy)
+            //->closest($latitude, $longitude)
+            ->favourites($getFavourites, optional(request()->user('sanctum'))->id)
+            ->pagination((int)$limit);
+
+    }
+
     public function create(array $attributes)
     {
         $attributes = $this->translate_check($attributes, 'title');

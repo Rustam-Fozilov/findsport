@@ -12,12 +12,17 @@ class Chat extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'owner_id'];
 
     protected $table = 'chats';
 
     public function messages(): MorphMany
     {
         return $this->morphMany(Message::class, 'messageable');
+    }
+
+    public function owner(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'owner_id');
     }
 }
