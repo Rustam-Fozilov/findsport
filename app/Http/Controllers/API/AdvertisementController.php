@@ -66,6 +66,13 @@ class AdvertisementController extends ApiController
         $advertisements = $this->service->all(
             limit: $request->query('limit', 5),
             listBy: $request->query('listBy', 'latest'),
+            search_query: $request->query('search_query'),
+            active: $request->query('active'),
+            latitude: $request->query('latitude'),
+            longitude: $request->query('longitude'),
+            ad_type: $request->query('ad_type'),
+            price_from: $request->query('price_from'),
+            price_to: $request->query('price_to'),
         );
 
         return $this->success(__('messages.success'),
@@ -80,12 +87,8 @@ class AdvertisementController extends ApiController
     public function grounds(Request $request): JsonResponse
     {
         $advertisements = $this->service->all(
-            limit: $request->query('limit', 5),
-            listBy: $request->query('listBy', 'latest'),
-            search_query: $request->query('search_query'),
-            latitude: $request->query('latitude'),
-            longitude: $request->query('longitude'),
-            ad_type: 'ground'
+            ad_type: 'ground',
+            sport_id: $request->query('sport_id')
         );
         return $this->success(__('messages.success'),
             new PaginationResourceCollection($advertisements, AdvertisementResource::class),

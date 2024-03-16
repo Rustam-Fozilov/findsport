@@ -28,6 +28,9 @@ class AdvertisementService
         $ad_type = null,
         $price_from = null,
         $price_to = null,
+        $season_type = null,
+        $sport_id = null,
+        $infrastructure_id = null,
     )
     {
         return Advertisement::query()
@@ -53,6 +56,17 @@ class AdvertisementService
             })
             ->when($price_to, function ($query) use ($price_to) {
                 return $query->where('price', '<', $price_to);
+            })
+            ->when($season_type, function ($query) use ($season_type) {
+                return $query->whereRelation('ad_items', 'ground_season_type', '=', $season_type);
+            })
+            ->when($sport_id, function ($query) use ($sport_id) {
+                return $query->whereHas('sports', function ($query) use ($sport_id) {
+                    return $query->where('sport_id', '=', $sport_id);
+                });
+            })
+            ->when($infrastructure_id, function ($query) use ($infrastructure_id) {
+                return $query->whereRelation('infrastructure', 'infrastructure_id', '=', $infrastructure_id);
             })
             ->with('sports', 'ad_items')
             ->listBy($listBy)
