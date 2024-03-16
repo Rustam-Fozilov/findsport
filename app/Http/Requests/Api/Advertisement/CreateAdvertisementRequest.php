@@ -66,7 +66,8 @@ class CreateAdvertisementRequest extends FormRequest
                             'trainer.name'=>'required|string',
                             'trainer.image'=>['required',new FileRule()],
                             'trainer.description'=>'required',
-                            'season'=>[new Enum(SeasonEnum::class)],
+                            'season'=>'required|between:0,2',
+//                            'season'=>[new Enum(SeasonEnum::class)],
                             'area'=>'required|string|max:255',
                         ]
                     );
