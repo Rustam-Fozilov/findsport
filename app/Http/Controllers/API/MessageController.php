@@ -8,33 +8,37 @@ use App\Models\Chat;
 use App\Models\Message;
 use App\Models\TempUser;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class MessageController extends ApiController
 {
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         $request->validate([
-           'receiver_id' => 'required|integer|exists:users,id',
+           'chat_id' => 'required|integer|exists:chats,id',
            'unread' => 'nullable|boolean'
         ]);
 
-        $messagesQuery = Message::query()->where('receiver_id', '=', $request['receiver_id']);
+        $chat = Message::query()
+            ->whereHas('chat', function ($query) use ($request) {
+                $query->where('id', $request['chat_id']);
+            });
 
         if ($request['unread']) {
-            $messagesQuery->where('read', '=', false);
+            $chat->where('read', '=', false);
         }
 
-        $messages = $messagesQuery->get();
+        $messages = $chat->get();
 
         return $this->success('all messages', $messages);
     }
 
-    public function store(StoreMessageRequest $request)
+    public function sendToAdmin(StoreMessageRequest $request): JsonResponse
     {
-        $sender = TempUser::firstOrCreate(['uid' => $request['sender_id']]);
-        $user = User::find($request['user_id']);
+        $sender = TempUser::firstOrCreate(['uid' => $request['client_id']]);
+        $user = User::find($request['admin_id']);
 
         if (!$user) {
             return $this->error('receiver user not found');
@@ -44,28 +48,58 @@ class MessageController extends ApiController
             ->where('messageable_type', '=', 'App\Models\TempUser')
             ->where('messageable_id', '=', $sender->id)
             ->whereHas('chat', function ($query) use ($sender, $request) {
-                $query->where('owner_id', '=', $request['user_id']);
+                $query->where('owner_id', '=', $request['admin_id']);
             })
             ->first();
 
         if ($message) {
-            $sender->messages()->create([
+            $message = $sender->messages()->create([
                 'chat_id' => $message['chat_id'],
                 'message' => $request['message'],
                 'read' => false,
             ]);
         } else {
             $chat = Chat::query()->create([
-                'owner_id' => $request['user_id']]
+                'owner_id' => $request['admin_id']]
             );
 
-            $sender->messages()->create([
+            $message = $sender->messages()->create([
                 'chat_id' => $chat->id,
                 'message' => $request['message'],
                 'read' => false,
             ]);
         }
 
-        return $this->success('message sent');
+        return $this->success('message sent to chat', $message);
+    }
+
+    public function sendToClient(StoreMessageRequest $request): JsonResponse
+    {
+        $user = User::find($request['admin_id']);
+        $sender = TempUser::query()->where('uid', $request['client_id'])->first();
+
+        if (!$user || !$sender) {
+            return $this->error('receiver or sender user not found');
+        }
+
+        $message = Message::query()
+            ->where('messageable_type', '=', 'App\Models\TempUser')
+            ->where('messageable_id', '=', $sender->id)
+            ->whereHas('chat', function ($query) use ($sender, $request) {
+                $query->where('owner_id', '=', $request['admin_id']);
+            })
+            ->first();
+
+        if (!$message) {
+            return $this->error('chat not found');
+        }
+
+         $message = $user->messages()->create([
+            'chat_id' => $message->chat_id,
+            'message' => $request['message'],
+            'read' => false
+        ]);
+
+        return $this->success('message sent to chat', $message);
     }
 }

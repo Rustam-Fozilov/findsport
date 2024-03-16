@@ -47,5 +47,6 @@ Route::get('districts', [InfoController::class, 'districts'])->name('api.distric
 Route::get('site', [InfoController::class, 'info'])->name('api.info');
 
 Route::get('/messages', [MessageController::class, 'index'])->name('api.messages.index');
-Route::post('/messages', [MessageController::class, 'store'])->name('api.messages.store');
+Route::post('/messages/send-admin', [MessageController::class, 'sendToAdmin'])->name('api.messages.store');
+Route::post('/messages/send-client', [MessageController::class, 'sendToClient'])->name('api.messages.store+client');
 
