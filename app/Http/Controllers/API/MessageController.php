@@ -36,23 +36,6 @@ class MessageController extends ApiController
         return $this->success('all messages', $messages);
     }
 
-    public function notifications()
-    {
-        return $this->success('notifications', auth()->user()->unreadNotifications);
-    }
-
-    public function markAsRead(Request $request)
-    {
-        $notification = auth()->user()->unreadNotifications()->find($request['id']);
-
-        if (!$notification) {
-            return $this->error('Notification not found');
-        }
-
-        $notification->markAsRead();
-        return $this->success('marked as read', $notification);
-    }
-
     public function sendToAdmin(StoreMessageRequest $request): JsonResponse
     {
         $sender = TempUser::firstOrCreate(['uid' => $request['client_id']]);

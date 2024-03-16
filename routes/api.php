@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\API\{AdvertisementController, FavoriteController, InfoController};
+use App\Http\Controllers\API\{AdvertisementController, FavoriteController, InfoController, NotificationController};
 use App\Http\Controllers\API\MessageController;
 use App\Http\Controllers\UploaderController;
 use Illuminate\Support\Facades\Route;
@@ -16,8 +16,8 @@ Route::middleware(['auth:sanctum', 'auth'])->group(function () {
     Route::delete('/upload-delete', [UploaderController::class, 'delete'])->name('file-delete-posts');
 
     Route::prefix('notifications')->group(function () {
-        Route::get('/', [MessageController::class, 'notifications'])->name('api.messages.notifications');
-        Route::post('/mark-as-read', [MessageController::class, 'markAsRead'])->name('api.messages.mark_as_read');
+        Route::get('/', [NotificationController::class, 'notifications'])->name('api.messages.notifications');
+        Route::post('/mark-as-read', [NotificationController::class, 'markAsRead'])->name('api.messages.mark_as_read');
     });
 });
 
