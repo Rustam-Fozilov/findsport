@@ -8,6 +8,7 @@ use App\Models\Chat;
 use App\Models\Message;
 use App\Models\TempUser;
 use App\Models\User;
+use App\Notifications\MessageSentNotification;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,6 +36,11 @@ class MessageController extends ApiController
         return $this->success('all messages', $messages);
     }
 
+    public function notifications()
+    {
+
+    }
+
     public function sendToAdmin(StoreMessageRequest $request): JsonResponse
     {
         $sender = TempUser::firstOrCreate(['uid' => $request['client_id']]);
@@ -53,22 +59,19 @@ class MessageController extends ApiController
             ->first();
 
         if ($message) {
-            $message = $sender->messages()->create([
-                'chat_id' => $message['chat_id'],
-                'message' => $request['message'],
-                'read' => false,
-            ]);
+            $chatId = $message->chat_id;
         } else {
-            $chat = Chat::query()->create([
-                'owner_id' => $request['admin_id']]
-            );
-
-            $message = $sender->messages()->create([
-                'chat_id' => $chat->id,
-                'message' => $request['message'],
-                'read' => false,
-            ]);
+            $chat = Chat::query()->create(['owner_id' => $request['admin_id']]);
+            $chatId = $chat->id;
         }
+
+        $message = $sender->messages()->create([
+            'chat_id' => $chatId,
+            'message' => $request['message'],
+            'read' => false,
+        ]);
+
+        $user->notify(new MessageSentNotification($message));
 
         return $this->success('message sent to chat', $message);
     }

@@ -95,8 +95,8 @@ class User extends Authenticatable
     {
         return $q->where('active', '=', true)->orderBy('position', 'DESC');
     }
-//    public function setPasswordAttribute($value): void
-//    {
-//        $this->attributes['password'] = bcrypt($value);
-//    }
+    public function setPasswordAttribute($value): void
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
 }

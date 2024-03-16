@@ -24,7 +24,8 @@ Route::prefix('advertisements')->group(function () {
     Route::get('/sections', [AdvertisementController::class, 'sections'])->name('api.advertisements.sections');
     Route::get('/clubs', [AdvertisementController::class, 'clubs'])->name('api.advertisements.clubs');
     Route::group(['middleware' => 'auth:sanctum'], function () {
-        Route::get('/my-clubs', [AdvertisementController::class, 'getMyClubs'])->name('api.advertisements.my+clubs');
+        Route::get('/my', [AdvertisementController::class, 'getMyAds'])->name('api.advertisements.my_ads');
+        Route::get('/my-clubs', [AdvertisementController::class, 'getMyClubs'])->name('api.advertisements.my_clubs');
         Route::post('/create', [AdvertisementController::class, 'store'])->name('api.advertisements.store');
         Route::put('/{advertisement}', [AdvertisementController::class, 'update'])->name('api.advertisements.update');
         Route::delete('/{advertisement}', [AdvertisementController::class, 'destroy'])->name('api.advertisements.destroy');
@@ -48,5 +49,7 @@ Route::get('site', [InfoController::class, 'info'])->name('api.info');
 
 Route::get('/messages', [MessageController::class, 'index'])->name('api.messages.index');
 Route::post('/messages/send-admin', [MessageController::class, 'sendToAdmin'])->name('api.messages.store');
-Route::post('/messages/send-client', [MessageController::class, 'sendToClient'])->name('api.messages.store+client');
-
+Route::post('/messages/send-client', [MessageController::class, 'sendToClient'])->name('api.messages.store_client');
+Route::get('/messages/notifications', [MessageController::class, 'notifications'])
+    ->middleware('auth:sanctum')
+    ->name('api.messages.notifications');

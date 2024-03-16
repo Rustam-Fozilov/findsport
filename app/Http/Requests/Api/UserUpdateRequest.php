@@ -43,6 +43,7 @@ class UserUpdateRequest extends FormRequest
             'birthday' => 'nullable|date',
             'avatar' => 'nullable|image|max:1000',
             'email' => 'nullable|email',
+            'password' => 'nullable|string',
             'gender' => ['nullable', new GenderRule()],
 //            'district_id' => 'nullable|exists:districts,id',
             'interests.*' => 'nullable|exists:interests,id',

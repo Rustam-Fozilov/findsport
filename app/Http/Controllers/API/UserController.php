@@ -12,9 +12,11 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends ApiController
 {
+    private $service;
 
     public function __construct(UserService $service)
     {
+        $this->service = $service;
     }
 
     /**

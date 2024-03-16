@@ -38,6 +38,19 @@ class AdvertisementController extends ApiController
         return $this->success(__('messages.success'), new PaginationResourceCollection($advertisements, AdvertisementResource::class));
     }
 
+    public function getMyAds(Request $request): JsonResponse
+    {
+        $advertisements = $this->service->my(
+            limit: $request->query('limit', 5),
+            listBy: $request->query('listBy', 'latest'),
+            search_query: $request->query('search_query'),
+            active: $request->query('active'),
+            latitude: $request->query('latitude'),
+            longitude: $request->query('longitude'),
+        );
+        return $this->success(__('messages.success'), new PaginationResourceCollection($advertisements, AdvertisementResource::class));
+    }
+
     public function best_ads(Request $request): JsonResponse
     {
         $advertisements = $this->service->all(
@@ -45,7 +58,7 @@ class AdvertisementController extends ApiController
             listBy: $request->query('listBy', 'latest'),
             plan: 1
         );
-        return $this->success(__('messages.success'), new PaginationResourceCollection($advertisements, AdvertisementResource::class));
+        return $this->success(__('messages.success'), AdvertisementResource::collection($advertisements));
     }
 
     public function all(Request $request): JsonResponse
@@ -146,7 +159,7 @@ class AdvertisementController extends ApiController
     public function store(CreateAdvertisementRequest $request)
     {
         return $this->success(__('messages.success'), (
-        new AdvertisementShowResource($this->service->create($request->validated()))
+            new AdvertisementShowResource($this->service->create($request->validated()))
         ));
     }
 

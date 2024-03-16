@@ -57,7 +57,6 @@ class MessageSentNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [
-            'sender_id' => $this->message->sender_id,
             'message' => $this->message->message,
         ];
     }

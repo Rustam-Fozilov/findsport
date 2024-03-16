@@ -31,6 +31,7 @@ class AdvertisementResource extends JsonResource
             'location'=>$this->location,
             'landmark' => $this->landmark,
             'is_favorite'=>$this->is_favorite,
+            'status' => $this->status,
 
         ];
     }
