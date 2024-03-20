@@ -88,7 +88,11 @@ class AdvertisementController extends ApiController
     {
         $advertisements = $this->service->all(
             ad_type: 'ground',
-            sport_id: $request->query('sport_id')
+            price_from: $request->query('price_from'),
+            price_to: $request->query('price_to'),
+            season_type: $request->query('season_type'),
+            sport_id: $request->query('sport_id'),
+            infrastructure_id: $request->query('infrastructure_id')
         );
         return $this->success(__('messages.success'),
             new PaginationResourceCollection($advertisements, AdvertisementResource::class),
@@ -140,7 +144,7 @@ class AdvertisementController extends ApiController
 
     public function locations(Request $request): JsonResponse
     {
-        $locations = $this->service->all()->pluck('location');
+        $locations = $this->service->locations();
         return $this->success('all locations', $locations);
     }
 

@@ -31,6 +31,9 @@ class AdvertisementService
         $season_type = null,
         $sport_id = null,
         $infrastructure_id = null,
+        $steps = null,
+        $age_begin = null,
+        $age_end = null
     )
     {
         return Advertisement::query()
@@ -121,6 +124,15 @@ class AdvertisementService
             ->favourites($getFavourites, optional(request()->user('sanctum'))->id)
             ->pagination((int)$limit);
 
+    }
+
+    public function locations($listBy = 'latest')
+    {
+        return Advertisement::query()
+            ->with('sports', 'ad_items')
+            ->listBy($listBy)
+            ->get()
+            ->pluck('location');
     }
 
     public function create(array $attributes)
