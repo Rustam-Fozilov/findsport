@@ -87,12 +87,12 @@ class AdvertisementController extends ApiController
     public function grounds(Request $request): JsonResponse
     {
         $advertisements = $this->service->all(
-            ad_type: 'ground',
             price_from: $request->query('price_from'),
             price_to: $request->query('price_to'),
             season_type: $request->query('season_type'),
             sport_id: $request->query('sport_id'),
-            infrastructure_id: $request->query('infrastructure_id')
+            infrastructure_id: $request->query('infrastructure_id'),
+            ad_type: 'ground'
         );
         return $this->success(__('messages.success'),
             new PaginationResourceCollection($advertisements, AdvertisementResource::class),
@@ -106,12 +106,15 @@ class AdvertisementController extends ApiController
     public function sections(Request $request): JsonResponse
     {
         $advertisements = $this->service->all(
-            limit: $request->query('limit', 5),
-            listBy: $request->query('listBy', 'latest'),
             search_query: $request->query('search_query'),
-            latitude: $request->query('latitude'),
-            longitude: $request->query('longitude'),
-            ad_type: 'sections'
+            price_from: $request->query('price_from'),
+            price_to: $request->query('price_to'),
+            season_type: $request->query('season_type'),
+            sport_id: $request->query('sport_id'),
+            steps: $request->query('steps'),
+            age_begin: $request->query('age_begin'),
+            age_end: $request->query('age_end'),
+            ad_type: 'section',
         );
         return $this->success(__('messages.success'), new PaginationResourceCollection($advertisements, AdvertisementResource::class));
     }
@@ -124,6 +127,9 @@ class AdvertisementController extends ApiController
             search_query: $request->query('search_query'),
             latitude: $request->query('latitude'),
             longitude: $request->query('longitude'),
+            price_from: $request->query('price_from'),
+            price_to: $request->query('price_to'),
+            sport_id: $request->query('sport_id'),
             ad_type: 'club'
         );
         return $this->success(__('messages.success'), new PaginationResourceCollection($advertisements, AdvertisementResource::class));

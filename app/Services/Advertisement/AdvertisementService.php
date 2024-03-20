@@ -25,7 +25,6 @@ class AdvertisementService
         $longitude = null,
         $getFavourites = null,
         $plan = null,
-        $ad_type = null,
         $price_from = null,
         $price_to = null,
         $season_type = null,
@@ -33,7 +32,8 @@ class AdvertisementService
         $infrastructure_id = null,
         $steps = null,
         $age_begin = null,
-        $age_end = null
+        $age_end = null,
+        $ad_type = null,
     )
     {
         return Advertisement::query()
@@ -72,6 +72,12 @@ class AdvertisementService
                 return $query->whereHas('infrastructure', function ($query) use ($infrastructure_id) {
                     return $query->whereIn('id', $infrastructure_id);
                 });
+            })
+            ->when($age_begin, function ($query) use ($age_begin) {
+                return $query->whereRelation('ad_items', 'age_begin', '>', $age_begin);
+            })
+            ->when($age_end, function ($query) use ($age_end) {
+                return $query->whereRelation('ad_items', 'age_end', '<', $age_end);
             })
             ->with('sports', 'ad_items')
             ->listBy($listBy)

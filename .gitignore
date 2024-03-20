@@ -3,7 +3,8 @@
 /public/storage
 /storage/*.key
 /storage/*.*
-/storage/logs/*
+storage/logs/*
+storage/*.key
 /vendor
 .env
 composer.lock
