@@ -45,8 +45,10 @@ Route::prefix('advertisements')->group(function () {
 
 Route::prefix('messages')->group(function () {
     Route::get('/', [MessageController::class, 'index'])->name('api.messages.index');
-    Route::post('/send-admin', [MessageController::class, 'sendToAdmin'])->name('api.messages.store');
-    Route::post('/send-client', [MessageController::class, 'sendToClient'])->name('api.messages.store_client');
+    Route::post('/send-to-admin', [MessageController::class, 'sendToAdmin'])->name('api.messages.store');
+    Route::post('/send-to-client', [MessageController::class, 'sendToClient'])
+        ->middleware('auth:sanctum')
+        ->name('api.messages.store_client');
 });
 
 Route::get('search', [AdvertisementController::class, 'search'])->name('api.search.advertisements');

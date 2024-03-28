@@ -71,9 +71,11 @@ class MessageController extends ApiController
         return $this->success('message sent to chat', $message);
     }
 
-    public function sendToClient(StoreMessageRequest $request): JsonResponse
+    public function sendToClient(Request $request): JsonResponse
     {
-        $user = User::find($request['admin_id']);
+        $request->validate(['client_id' => 'required']);
+
+        $user = auth()->user();
         $sender = TempUser::query()->where('uid', $request['client_id'])->first();
 
         if (!$user || !$sender) {
@@ -84,7 +86,7 @@ class MessageController extends ApiController
             ->where('messageable_type', '=', 'App\Models\TempUser')
             ->where('messageable_id', '=', $sender->id)
             ->whereHas('chat', function ($query) use ($sender, $request) {
-                $query->where('owner_id', '=', $request['admin_id']);
+                $query->where('owner_id', '=', auth()->user()->id);
             })
             ->first();
 
