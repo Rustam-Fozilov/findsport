@@ -32,7 +32,7 @@ class AdvertisementResource extends JsonResource
             'landmark' => $this->landmark,
             'is_favorite'=>$this->is_favorite,
             'status' => $this->status,
-
+            'images' => $this->images,
         ];
     }
 }

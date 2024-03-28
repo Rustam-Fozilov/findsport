@@ -70,9 +70,9 @@ class AdvertisementController extends ApiController
             active: $request->query('active'),
             latitude: $request->query('latitude'),
             longitude: $request->query('longitude'),
-            ad_type: $request->query('ad_type'),
             price_from: $request->query('price_from'),
             price_to: $request->query('price_to'),
+            ad_type: $request->query('ad_type'),
         );
 
         return $this->success(__('messages.success'),
