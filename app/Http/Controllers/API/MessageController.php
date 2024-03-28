@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Requests\StoreMessageRequest;
+use App\Http\Resources\MessageResource;
 use App\Models\Chat;
 use App\Models\Message;
 use App\Models\TempUser;
@@ -22,16 +23,16 @@ class MessageController extends ApiController
            'unread' => 'nullable|boolean'
         ]);
 
-        $chat = Message::query()
+        $messages = Message::query()
             ->whereHas('chat', function ($query) use ($request) {
                 $query->where('id', $request['chat_id']);
             });
 
         if ($request['unread']) {
-            $chat->where('read', '=', false);
+            $messages->where('read', '=', false);
         }
 
-        $messages = $chat->get();
+        $messages = $messages->get();
 
         return $this->success('all messages', $messages);
     }
@@ -73,7 +74,7 @@ class MessageController extends ApiController
 
     public function sendToClient(Request $request): JsonResponse
     {
-        $request->validate(['client_id' => 'required']);
+        $request->validate(['client_id' => 'required', 'message' => 'required']);
 
         $user = auth()->user();
         $sender = TempUser::query()->where('uid', $request['client_id'])->first();
