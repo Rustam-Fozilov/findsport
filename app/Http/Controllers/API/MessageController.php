@@ -34,7 +34,8 @@ class MessageController extends ApiController
 
         $messages = $messages->get();
 
-        return $this->success('all messages', $messages);
+        return $this->success('all messages', MessageResource::collection($messages));
+//        return $this->success('all messages', $messages);
     }
 
     public function sendToAdmin(StoreMessageRequest $request): JsonResponse

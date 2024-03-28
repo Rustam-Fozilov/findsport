@@ -18,6 +18,7 @@ class MessageResource extends JsonResource
         return [
             'id' => $this->id,
             'message' => $this->message,
+            'user' => $this->messageable,
             'chat_id' => $this->chat_id,
             'read' => $this->read,
             'created_at' => Carbon::parse($this->created_at)->format('Y-m-d H:i:s'),
